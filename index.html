@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		 <meta charset="utf-8"/>
 		<title>Password Generator</title>
         <style>
             body {
@@ -96,16 +97,13 @@
                     console.log(characters)
     			    document.passform.password.value = Array.from(crypto.getRandomValues(new Uint32Array(length))).map((n)=>characters[n%characters.length]).join('')
                 }
-                function show_length(){
+                function range_changed(){
                     const length=document.passform.length.value
-                    document.passform.lengthText.innerText = length
+                    document.getElementById('lengthText').innerText = length
+		    generate_password()
                 }
-                /*document.passform.length.addEventListener('oninput', generate_password);
-                document.passform.length.addEventListener('oninput', generate_password);
-                document.passform.length.addEventListener('onclick', show_length);
-                document.passform.length.addEventListener('onclick', show_length);*/
-                document.passform.length.oninput = generate_password
-                document.passform.length.onclick = generate_password
+                document.passform.length.oninput = range_changed
+                document.passform.length.onclick = range_changed
                 document.passform.lowercase.onclick = generate_password
                 document.passform.uppercase.onclick = generate_password
                 document.passform.numbers.onclick = generate_password
