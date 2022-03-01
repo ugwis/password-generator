@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Password Generator</title>
+        <style>
+            body {
+                background: #f7f7f7;
+                font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro','メイリオ', 'Meiryo', '游ゴシック', 'Yu Gothic', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+                color: #4a4a4a;
+            }
+            main {
+                width: 800px;
+                margin: 0px auto;
+                min-height: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 3px;
+                box-shadow: 8px 8px #eee;
+            }
+            h1 {
+                font-size: large;
+            }
+            input {
+                border: 1px solid #aeaeae;
+                border-radius: 5px;
+                text-align: center;
+                min-height: 30px;
+                padding: 0px;
+                color: #828282;
+            }
+            button {
+                border: 1px solid #aeaeae;
+                border-radius: 5px;
+                text-align: center;
+                min-height: 30px;
+                background: transparent;
+                color: #4a4a4a;
+            }
+            .left {
+                float: right;
+                width: 300px;
+            }
+        </style>
+	</head>
+	<body>
+        <main>
+            <h1>Password Generator</h1>
+    		<form name="passform">
+                <label for="length">Length:</label>
+                <input type="range" id="length" name="length" value="8" min="7" max="200">
+                <span id="lengthText" name="lengthText">8</span>
+
+                <div id="options" class="left">
+                    <div>
+                        <input type="checkbox" id="uppercase" name="uppercase" value="upper" checked>
+                        <label for="uppercase">Uppercase:</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="lowercase" name="lowercase" value="lower" checked>
+                        <label for="lowercase">Lowercase:</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="numbers" name="numbers" value="numbers">
+                        <label for="numbers">Numbers:</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symbols" name="symbols" value="symbols">
+                        <label for="symbols">Symbols:</label>
+                    </div>
+                </div>
+    			<input type="text" name="password" >
+                <button type="button" name="regenerate" >regenerate</button>
+    		</form>
+    		<script>
+    			const lowercase="abcdefghijklmnopqrstuvwxyz"
+                const uppercase="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                const numbers="0123456789"
+                const symbols="!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+                function generate_password () {
+
+    			    const length=document.passform.length.value
+                    let characters = ""
+                    if (document.passform.lowercase.checked) {
+                        characters += lowercase
+                    }
+                    if (document.passform.uppercase.checked) {
+                        characters += uppercase
+                    }
+                    if (document.passform.numbers.checked) {
+                        characters += numbers
+                    }
+                    if (document.passform.symbols.checked) {
+                        characters += symbols
+                    }
+
+                    console.log(characters)
+    			    document.passform.password.value = Array.from(crypto.getRandomValues(new Uint32Array(length))).map((n)=>characters[n%characters.length]).join('')
+                }
+                function show_length(){
+                    const length=document.passform.length.value
+                    document.passform.lengthText.innerText = length
+                }
+                /*document.passform.length.addEventListener('oninput', generate_password);
+                document.passform.length.addEventListener('oninput', generate_password);
+                document.passform.length.addEventListener('onclick', show_length);
+                document.passform.length.addEventListener('onclick', show_length);*/
+                document.passform.length.oninput = generate_password
+                document.passform.length.onclick = generate_password
+                document.passform.lowercase.onclick = generate_password
+                document.passform.uppercase.onclick = generate_password
+                document.passform.numbers.onclick = generate_password
+                document.passform.symbols.onclick = generate_password
+                document.passform.regenerate.onclick = generate_password
+                generate_password()
+    		</script>
+        </main>
+	</body>
+</html>
+
