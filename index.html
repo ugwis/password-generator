@@ -10,7 +10,7 @@
                 color: #4a4a4a;
             }
             main {
-                width: 700px;
+                width: 400px;
                 margin: 0px auto;
                 min-height: 400px;
                 background: #fff;
@@ -38,10 +38,15 @@
                 background: transparent;
                 color: #4a4a4a;
             }
-            .left {
-                float: right;
-                width: 300px;
-            }
+	    @media screen and ( min-width:700px ) {
+		main {
+                    width: 700px;
+		}
+                .left {
+                    float: right;
+                    width: 300px;
+                }
+	    }
         </style>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -54,6 +59,9 @@
                 <label for="length">Length:</label>
                 <input type="range" id="length" name="length" value="18" min="7" max="200">
                 <span id="lengthText" name="lengthText">18</span>
+                <input type="text" name="password" disabled>
+                <button type="button" name="regenerate" >regenerate</button>
+
 
                 <div id="options" class="left">
                     <div>
@@ -73,8 +81,6 @@
                         <label for="symbols">Symbols:</label>
                     </div>
                 </div>
-		<input type="text" name="password" disabled>
-                <button type="button" name="regenerate" >regenerate</button>
     		</form>
     		<script>
     			const lowercase="abcdefghijklmnopqrstuvwxyz"
